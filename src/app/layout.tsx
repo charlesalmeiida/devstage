@@ -30,7 +30,9 @@ export default function RootLayout({
       className={`${montserrat.variable} ${oxanium.variable}`}
       suppressHydrationWarning
     >
-      <body className="antialiased bg-gray-900 text-gray-100">{children}</body>
+      <body className="bg-gray-900 antialiased bg-[url(/background.png)] bg-no-repeat bg-top text-gray-100 md:bg-right-top">
+        {children}
+      </body>
     </html>
   )
 }
