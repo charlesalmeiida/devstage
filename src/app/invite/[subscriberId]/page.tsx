@@ -1,17 +1,16 @@
 import Image from "next/image"
-import logo from "../../assets/logo.svg"
-import { BadgeCheck, Medal, MousePointerClick } from "lucide-react"
-import {
-  BulletTitle,
-  BulletValue,
-  BulletWrapper,
-  IconWrapper,
-} from "@/app/invite/stats"
+import logo from "../../../assets/logo.svg"
 import { Ranking } from "./ranking"
 import { InviteLinkInput } from "./invite-link-input"
+import { Stats } from "./stats"
 
-export default function InvitePage() {
-  const inviteLink = "devstage.com/codecraft-summit-2025/1289"
+interface InvitePageProps {
+  params: Promise<{ subscriberId: string }>
+}
+
+export default async function InvitePage(props: InvitePageProps) {
+  const { subscriberId } = await props.params
+  const inviteLink = `http://localhost:3333/invites/${subscriberId}`
 
   return (
     <div className="min-h-dvh flex items-center justify-between gap-16 flex-col md:flex-row">
@@ -40,36 +39,9 @@ export default function InvitePage() {
           </div>
 
           <InviteLinkInput link={inviteLink} />
-
-          <div className="grid gap-3 md:grid-cols-3">
-            <BulletWrapper>
-              <BulletTitle>942</BulletTitle>
-              <BulletValue>Acessos ao link</BulletValue>
-
-              <IconWrapper>
-                <MousePointerClick />
-              </IconWrapper>
-            </BulletWrapper>
-
-            <BulletWrapper>
-              <BulletTitle>875</BulletTitle>
-              <BulletValue>Inscrições feitas</BulletValue>
-
-              <IconWrapper>
-                <BadgeCheck />
-              </IconWrapper>
-            </BulletWrapper>
-
-            <BulletWrapper>
-              <BulletTitle>3º</BulletTitle>
-              <BulletValue>Posição no ranking</BulletValue>
-
-              <IconWrapper>
-                <Medal />
-              </IconWrapper>
-            </BulletWrapper>
-          </div>
         </div>
+
+        <Stats subscriberId={subscriberId} />
       </div>
 
       <Ranking />
